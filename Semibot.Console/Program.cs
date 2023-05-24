@@ -17,8 +17,7 @@ internal class Program
         IConfiguration configuration = new ConfigurationBuilder()
         .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
         .Build();
-        Console.WriteLine(configuration.ToString());
-        Console.WriteLine(configuration.GetSection("TelegramBot").Exists());
+
         var botClient = new TelegramBotClient(configuration["TelegramBot:AccessToken"]!);
 
         // ******************
@@ -35,7 +34,10 @@ internal class Program
         {
             ICommand? command = Activator.CreateInstance(commandType) as ICommand;
             CommandRegistry.RegisterCommand(command!);
+            Console.WriteLine($"Registered {command!.Name} command");
         }
+
+        Console.WriteLine($"Registered {CommandRegistry.Count} commands!");
 
         // ******************
 
@@ -77,7 +79,7 @@ internal class Program
 
             if (messageText.StartsWith("/"))
             {
-                Console.WriteLine($"Received a '{messageText}' command in chat {chatId} of {message.AuthorSignature} ({CommandRegistry.Count} commands).");
+                Console.WriteLine($"Received a '{messageText}' command in chat {chatId}.");
 
                 var commandName = messageText.Split(' ')[0]; // Extract the command name from the message text
 

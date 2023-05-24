@@ -4,20 +4,17 @@ using Telegram.Bot.Types;
 
 namespace Semibot.Console.Commands;
 
-public class GetInfoCommand : ICommand
+public class TestCommand : ICommand
 {
-    public string Name => "/info";
+    public string Name => "/test";
 
     public async Task ExecuteAsync(Message message, ITelegramBotClient botClient, CancellationToken cancellationToken)
     {
         var chatId = message.Chat.Id;
 
-        var userName = message.Chat.FirstName + " " + message.Chat.LastName;
-
-
         await botClient.SendTextMessageAsync(
             chatId: chatId,
-            text: $"Welcome {userName} to the bot (Id: {botClient.BotId})!",
+            text: message.Type.ToString(),
             cancellationToken: cancellationToken);
     }
 }
