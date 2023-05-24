@@ -66,4 +66,4 @@ jobs:
       - name: Build
         run: dotnet build Semibot.Console
       - name: Deploy
-        run: dotnet run --project Semibot.Console
+        run: echo "Deploying..."
