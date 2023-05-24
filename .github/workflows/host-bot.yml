@@ -53,4 +53,4 @@ jobs:
       - name: Build
         run: dotnet build Semibot.Console
       - name: Deploy
-        run: dotnet run Semibot.Console
+        run: dotnet run --project Semibot.Console
